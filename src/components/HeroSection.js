@@ -8,7 +8,7 @@ function HeroSection() {
 
   return (
     <div className='hero-container'>
-      <video src="/videos/video-1.mp4" /*autoPlay loop muted*/ />
+      <img src="/images/campusHomeImg.jpg"/>
       <h1>COLLEGE COACH</h1>
       <p>Tailor your college app</p>
       <div className="hero-btns">
