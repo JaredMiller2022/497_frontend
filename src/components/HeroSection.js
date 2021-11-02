@@ -10,7 +10,7 @@ function HeroSection() {
     <div className='hero-container'>
       <img src="/images/campusHomeImg.jpg"/>
       <h1>COLLEGE COACHING</h1>
-      <p>Refine your college application.</p>
+      <p>Perfect your college application.</p>
       {/*<div className="hero-btns">
         <Button className='btns' buttonStyle='btn--outline' buttonSize='btn--large'>
           GET STARTED
