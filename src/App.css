@@ -42,3 +42,16 @@
   color: #fff;
   font-size: 100px;
 }
+
+.log-in {
+  color: #fff;
+  font-size: 100px;
+}
+
+.loginForm {
+  display: flex;
+  height: 90vh;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
