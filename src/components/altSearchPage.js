@@ -1,88 +1,3 @@
-/*
-import React from 'react';
-import CoachCard from './CoachCard'
-
-
-
-class AltSearchPage extends React.Component{
-
-    constructor(props){
-        super(props);
-        this.fetchUniversities = this.fetchUniversities.bind(this);
-        this.fetchCoaches = this.fetchCoaches.bind(this);
-        this.state = {
-            universities: [],
-            coaches: [],
-            isSchoolSelected: '',
-            searchQuery: '',
-            fire: false
-        };
-    }
-
-    componentDidMount(){
-        this.fetchUniversities();
-
-    }
-
-    fetchUniversities(){
-        //this.setState({fire: true});
-        fetch(`http://localhost:5000/colleges/list`, {method: 'GET'})
-        .then((response) => {
-            if (!response.ok) throw Error(response.statusText);
-            return response.json();
-        })
-        .then((data) => {
-          data.forEach(university => {
-            this.setState({universities: university['university_name']})
-          })
-          this.setState({fire: true});
-        })
-        .catch((error) => console.log(error));
-    }
-
-    fetchCoaches(){
-        
-        let university_name = university['university_name'];
-                let url = 'http://localhost:5000/coaches/university?university_name=' + university_name;
-                fetch(url)
-                .then((response) => {
-                    if (!response.ok) throw Error(response.statusText);
-                    console.log(response.json())
-                    return response.json();
-                })
-                .then((data) => {
-                    this.setState((prevState) => { coaches: prevState.coaches.concat(data) });
-                })
-                .catch((error) => console.log(error));
-                
-    }
-
-    render(){
-        console.log('Rendering Page...');
-        return (
-            <div className="collegeList">
-                <div>
-                    <h1>Did fire?</h1>
-                    <h1>{(this.state.fire) ? 'Yes': 'No'}</h1>
-                    <h1>{this.state.fire.toString()}</h1>
-                    <h1>Length: {this.state.universities.length}</h1>
-                </div>
-                <div className="universities">
-                    {this.state.universities.map((uni) => {
-                        return (
-                            <div>
-                                <h1>{uni}</h1>
-                            </div>
-                        )
-                    })}
-                </div>
-            </div>
-        )
-    }
-}
-
-export default AltSearchPage;
-*/
 
 import React from 'react'
 import { useEffect, useState } from 'react'
@@ -91,65 +6,6 @@ import CoachCard from './CoachCard'
 function AltSearchPage() {
   const [universities, setUniversities] = useState([]);
   const [coaches, setCoaches] = useState([]);
-/*
-  const coaches = [
-    {id: 1, firstName: 'Jared', lastName: 'Miller', pronouns: 'he/him', email: 'jaredmil@umich.edu', school: 'University of Michigan', gradYear: 2022, gpa: 3.7, major: 'Computer Science', minor: '', housing: 'Off-Campus'},
-    {id: 2, firstName: 'Vanita', lastName: 'Sharma', pronouns: 'she/her', email: 'vsharma@umich.edu', school: 'University of Michigan', gradYear: 2024, gpa: 3.85, major: 'Mathematics', minor: 'Business', housing: 'South Quad'},
-    {id: 3, firstName: 'Andrew', lastName: 'Dazzo', pronouns: 'he/him', email: 'adazzo@cornell.edu', school: 'Cornell University', gradYear: 2023, gpa: 3.6, major: 'Physcology', minor: 'English', housing: 'West Dorm'},
-    {id: 4, firstName: 'AJ', lastName: 'Hall', pronouns: 'they/them', email: 'ajhall@umich.edu', school: 'University of Michigan', gradYear: 2022, gpa: 3.7, major: 'Computer Science', minor: '', housing: 'Off-Campus'},
-    {id: 5, firstName: 'Jessica', lastName: 'Jansen', pronouns: 'she/her', email: 'jjansen@cornell.edu', school: 'Cornell University', gradYear: 2025, gpa: 3.5, major: 'Computer Science', minor: 'Physics', housing: 'North Dorm'},
-  ]
-*/
-  console.log('Entered altSearchPage');
-
-  useEffect(() => {
-    console.log('Entered first fetch');
-    fetch(`http://localhost:5000/colleges/list`, {credentials: 'same-origin'})
-    .then((response) => {
-        if (!response.ok) throw Error(response.statusText);
-        return response.json();
-    })
-    .then(data =>{
-        const temp = data.map((currentUni, index) => (
-				  {id: index, name: currentUni['university_name']}
-			  ));
-
-        setUniversities(temp);
-    })
-    .catch(error => console.log(error));
-  }, [])
-
-  
-  useEffect(() => {
-    universities.map((university) => {
-        let uni_name = university['name'].replace(/\s/g, '+');
-        let url = 'http://localhost:5000/coaches/university?university_name=' + uni_name;
-        fetch(url)
-        .then((response) => {
-            if (!response.ok) throw Error(response.statusText);
-            return response.json();
-        })
-        .then(data => {
-            const prevCoaches = coaches;
-            const temp = data.map((currentCoach, index) => (
-              {id: index, 
-                firstName: currentCoach['firstName'],
-                lastName: 'Jansen', 
-                pronouns: 'she/her', 
-                email: 'jjansen@cornell.edu', 
-                school: 'Cornell University', 
-                gradYear: 2025, 
-                gpa: 3.5, 
-                major: 'Computer Science', 
-                minor: 'Physics', 
-                housing: 'North Dorm'}
-            ))
-            setCoaches(coaches + data);
-        })
-        .catch(error => console.log(error));
-    })
-  })
-
 
   const filterSchools = (schools, query) => {
     if (!query) {
@@ -172,6 +28,49 @@ function AltSearchPage() {
   const filteredSchools = filterSchools(universities, searchQuery)
   const [ schoolSelected, setSchoolSelected ] = useState(false)
   const filteredCoaches = filterCoaches(searchQuery)
+
+  // This resource is helpful for figuring out how to do react hook fetches
+  // https://stackoverflow.com/questions/53332321/react-hook-warnings-for-async-function-in-useeffect-useeffect-function-must-ret
+
+  useEffect(() => {
+    async function fetchUniversities(){
+      let response = await fetch(`https://eecs497-backend-api.herokuapp.com/colleges/list`, {credentials: 'same-origin'})
+      let data = await response.json()
+
+      const u_temp = data.map((currentUni, index) => (
+        {id: index, name: currentUni['university_name']}
+      ));
+
+      setUniversities(u_temp);
+
+      async function fetchCoaches(uni){
+        let c_response = await fetch('https://eecs497-backend-api.herokuapp.com/coaches/university?university_name=' + uni['name'].replace(/\s/g, '+'))
+        let c_data = await c_response.json()
+
+        const temp = c_data.map((currentCoach) => (
+          {id: currentCoach['coach_id'], 
+            firstName: currentCoach['coach_name'].split(' ')[0],
+            lastName: currentCoach['coach_name'].split(' ')[1], 
+            pronouns: 'n/a', 
+            email: currentCoach['coach_name'].replace(/\s/g, '') + '@collegecoach.com', 
+            school: currentCoach['university_name'], 
+            gradYear: currentCoach['university_grad_date'], 
+            gpa: currentCoach['gpa'], 
+            major: currentCoach['major'], 
+            minor: currentCoach['minor'], 
+            housing: 'n/a'}
+        ))
+        temp.forEach(element => setCoaches(old => [...old, element]));
+      }
+
+      u_temp.forEach(uni =>{
+        fetchCoaches(uni)
+      })
+    }
+
+    fetchUniversities()
+  }, [])
+
 
   return (
     <div class='SearchPage' style={{margin: 10, height: 1000}}>
