@@ -8,29 +8,29 @@ export default function SignUp() {
   const [ name, setName ] = useState('')
   const [ pronouns, setPronouns ] = useState('')
   const [ university, setUniversity ] = useState('')
-  const [ gradYear, setGradYear ] = useState()
+  const [ gradYear, setGradYear ] = useState('')
   const [ gpa, setGPA ] = useState()
   const [ major, setMajor ] = useState('')
   const [ minor, setMinor ] = useState('')
   const [ housingType, setHousingType ] = useState('')
 
   const submitSignUp = () => {
-    fetch("https://eecs497-backend-api.herokuapp.com/coaches/create", {
+    fetch("http://localhost:5000/coaches/create", {
       method: "post",
       headers: {
         'Accept': 'application/json',
         'ContentType': 'application/json'
       },
-      body: JSON.stringify({
-        coach_name: name,
-        university_name: university,
-        university_grad_date: gradYear,
-        gpa: gpa,
-        major: major,
-        minor: minor,
-        email: email,
-        pronouns: pronouns,
-        housing_type: housingType,
+      body: new URLSearchParams({
+        'coach_name': name,
+        'university_name': university,
+        'university_grade_date': gradYear,
+        'gpa': gpa,
+        'major': major,
+        'minor': minor,
+        'email': email,
+        'pronouns': pronouns,
+        'housing_type': housingType,
       })
     })
     .then((response) => console.log(response))
