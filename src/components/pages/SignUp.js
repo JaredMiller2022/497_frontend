@@ -15,7 +15,7 @@ export default function SignUp() {
   const [ housingType, setHousingType ] = useState('')
 
   const submitSignUp = () => {
-    fetch("http://localhost:5000/coaches/create", {
+    fetch("https://eecs497-backend-api.herokuapp.com/coaches/create", {
       method: "post",
       headers: {
         'Accept': 'application/json',
@@ -33,7 +33,10 @@ export default function SignUp() {
         'housing_type': housingType,
       })
     })
-    .then((response) => console.log(response))
+    .then((response) => {
+      console.log(response)
+      // TODO: Stuff
+    })
   }
 
   return (
