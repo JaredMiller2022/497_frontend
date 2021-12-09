@@ -14,6 +14,28 @@ export default function SignUp() {
   const [ minor, setMinor ] = useState('')
   const [ housingType, setHousingType ] = useState('')
 
+  const submitSignUp = () => {
+    fetch("https://eecs497-backend-api.herokuapp.com/coaches/create", {
+      method: "post",
+      headers: {
+        'Accept': 'application/json',
+        'ContentType': 'application/json'
+      },
+      body: JSON.stringify({
+        coach_name: name,
+        university_name: university,
+        university_grad_date: gradYear,
+        gpa: gpa,
+        major: major,
+        minor: minor,
+        email: email,
+        pronouns: pronouns,
+        housing_type: housingType,
+      })
+    })
+    .then((response) => console.log(response))
+  }
+
   return (
     <>
       <div className="signUpForm">
@@ -24,120 +46,133 @@ export default function SignUp() {
           justifyContent: 'center',
         }}>
           <h1>Create an Account</h1>
-          <form action="/" method="POST" style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            spaceBetween: 10,
-          }}>
-            <input
-              value={email}
-              onChange={e => {
-                setEmail(e.target.value)
-              }}
-              type='text'
-              id='email'
-              placeholder='Email'
-              name='email'
-              style={{width: 300, marginTop: 5, padding: 5,}}
-            />
-            <input
-              value={name}
-              onChange={i => setName(i.target.value)}
-              type='text'
-              id='name'
-              placeholder='Full Name'
-              name='name'
-              style={{
-                width: 300,
-                marginTop: 5,
-                padding: 5,
-              }}
-            />
-            <input
-              value={pronouns}
-              onChange={i => setPronouns(i.target.value)}
-              type='text'
-              id='pronouns'
-              placeholder='Pronouns'
-              name='pronouns'
-              style={{
-                width: 300,
-                marginTop: 5,
-                padding: 5,
-              }}
-            />
-            <input
-              value={university}
-              onChange={i => setUniversity(i.target.value)}
-              type='text'
-              id='university'
-              placeholder='University'
-              name='university'
-              style={{
-                width: 300,
-                marginTop: 5,
-                padding: 5,
-              }}
-            />
-            <input
-              value={gradYear}
-              onChange={i => setGradYear(i.target.value)}
-              type='number'
-              id='gradYear'
-              placeholder='Graduation Year'
-              name='gradYear'
-              style={{
-                width: 300,
-                marginTop: 5,
-                padding: 5,
-              }}
-            />
-            <input
-              value={major}
-              onChange={i => setMajor(i.target.value)}
-              type='text'
-              id='major'
-              placeholder='Major'
-              name='major'
-              style={{
-                width: 300,
-                marginTop: 5,
-                padding: 5,
-              }}
-            />
-            <input
-              value={minor}
-              onChange={i => setMinor(i.target.value)}
-              type='text'
-              id='minor'
-              placeholder='Minor'
-              name='minor'
-              style={{
-                width: 300,
-                marginTop: 5,
-                padding: 5,
-              }}
-            />
-            <input
-              value={gpa}
-              onChange={i => setGPA(i.target.value)}
-              type='decimal'
-              id='gpa'
-              placeholder='GPA'
-              name='gpa'
-              style={{
-                width: 300,
-                marginTop: 5,
-                padding: 5,
-              }}
-            />
-            <input type="submit" value="Sign Up" style={{
+          <input
+            value={email}
+            onChange={e => {
+              setEmail(e.target.value)
+            }}
+            type='text'
+            id='email'
+            placeholder='Email'
+            name='email'
+            style={{width: 300, marginTop: 5, padding: 5,}}
+          />
+          <input
+            value={name}
+            onChange={i => setName(i.target.value)}
+            type='text'
+            id='name'
+            placeholder='Full Name'
+            name='name'
+            style={{
               width: 300,
               marginTop: 5,
               padding: 5,
-            }}/>
-          </form>
+            }}
+          />
+          <input
+            value={pronouns}
+            onChange={i => setPronouns(i.target.value)}
+            type='text'
+            id='pronouns'
+            placeholder='Pronouns'
+            name='pronouns'
+            style={{
+              width: 300,
+              marginTop: 5,
+              padding: 5,
+            }}
+          />
+          <input
+            value={university}
+            onChange={i => setUniversity(i.target.value)}
+            type='text'
+            id='university'
+            placeholder='University'
+            name='university'
+            style={{
+              width: 300,
+              marginTop: 5,
+              padding: 5,
+            }}
+          />
+          <input
+            value={gradYear}
+            onChange={i => setGradYear(i.target.value)}
+            type='number'
+            id='gradYear'
+            placeholder='Graduation Year'
+            name='gradYear'
+            style={{
+              width: 300,
+              marginTop: 5,
+              padding: 5,
+            }}
+          />
+          <input
+            value={major}
+            onChange={i => setMajor(i.target.value)}
+            type='text'
+            id='major'
+            placeholder='Major'
+            name='major'
+            style={{
+              width: 300,
+              marginTop: 5,
+              padding: 5,
+            }}
+          />
+          <input
+            value={minor}
+            onChange={i => setMinor(i.target.value)}
+            type='text'
+            id='minor'
+            placeholder='Minor'
+            name='minor'
+            style={{
+              width: 300,
+              marginTop: 5,
+              padding: 5,
+            }}
+          />
+          <input
+            value={gpa}
+            onChange={i => setGPA(i.target.value)}
+            type='decimal'
+            id='gpa'
+            placeholder='GPA'
+            name='gpa'
+            style={{
+              width: 300,
+              marginTop: 5,
+              padding: 5,
+            }}
+          />
+          <input
+            value={housingType}
+            onChange={i => setHousingType(i.target.value)}
+            type='text'
+            id='housingType'
+            placeholder='Housing Type'
+            name='housingType'
+            style={{
+              width: 300,
+              marginTop: 5,
+              padding: 5,
+            }}
+          />
+          <button
+            text="Submit"
+            value="Sign Up"
+            style={{
+              width: 300,
+              marginTop: 5,
+              padding: 5,
+            }}
+            onClick={() => submitSignUp()}
+          >
+            Submit
+          </button>
         </div>
 
 

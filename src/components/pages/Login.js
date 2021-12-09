@@ -16,7 +16,7 @@ function Login() {
           justifyContent: 'center',
         }}>
           <h1>Log In</h1>
-          <form action="/" method="POST" style={{flex: 1}}>
+          <form action="/" method="GET" style={{flex: 1}}>
             <input
               value={email}
               onChange={i => setEmail(i.target.value)}
