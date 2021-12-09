@@ -6,6 +6,23 @@ import Footer from '../Footer';
 function Login() {
   const [ email, setEmail ] = useState('')
 
+  const submitLogIn = () => {
+    fetch(`https://eecs497-backend-api.herokuapp.com/coaches/id-by-email?email=${email}`, {
+      method: "get",
+    })
+    .then((response) => {
+      console.log(response)
+      if (response.status != 200) {
+        return "ERROR: User Not Found"
+      }
+      return response.json()
+    })
+    .then((jsonResponse) => {
+      console.log(jsonResponse)
+      // TODO: Stuff
+    })
+  }
+
   return (
     <>
       <div className="loginForm">
@@ -16,7 +33,7 @@ function Login() {
           justifyContent: 'center',
         }}>
           <h1>Log In</h1>
-          <form action="/" method="GET" style={{flex: 1}}>
+          <form action={submitLogIn()} style={{flex: 1}}>
             <input
               value={email}
               onChange={i => setEmail(i.target.value)}
