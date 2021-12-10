@@ -48,16 +48,16 @@ function AltSearchPage() {
         let c_data = await c_response.json()
 
         const temp = c_data.map((currentCoach) => (
-          {id: currentCoach['coach_id'], 
+          {id: currentCoach['coach_id'],
             firstName: currentCoach['coach_name'].split(' ')[0],
-            lastName: currentCoach['coach_name'].split(' ')[1], 
-            pronouns: 'n/a', 
-            email: currentCoach['coach_name'].replace(/\s/g, '') + '@collegecoach.com', 
-            school: currentCoach['university_name'], 
-            gradYear: currentCoach['university_grad_date'], 
-            gpa: currentCoach['gpa'], 
-            major: currentCoach['major'], 
-            minor: currentCoach['minor'], 
+            lastName: currentCoach['coach_name'].split(' ')[1],
+            pronouns: 'n/a',
+            email: currentCoach['coach_name'].replace(/\s/g, '') + '@collegecoach.com',
+            school: currentCoach['university_name'],
+            gradYear: currentCoach['university_grad_date'],
+            gpa: currentCoach['gpa'],
+            major: currentCoach['major'],
+            minor: currentCoach['minor'],
             housing: 'n/a'}
         ))
         temp.forEach(element => setCoaches(old => [...old, element]));
@@ -73,7 +73,7 @@ function AltSearchPage() {
 
 
   return (
-    <div class='SearchPage' style={{margin: 10, height: 1000}}>
+    <div className='SearchPage' style={{margin: 10, height: 1000}}>
       <h1>Search for Coaches by University.</h1>
       <div style={{
         marginTop: 10,

@@ -15,10 +15,6 @@ function Home() {
         color="#fff"
         content={<OurServices />}
       />
-      {/* It's fine that the below two sections are empty for the demo. */}
-      {/*<HomeContentSection title="Our Coaches" color="#99ccff" />
-      <HomeContentSection title="Testimonials" color="#fff" />*/}
-      {/*<Cards />*/}
       <Footer />
     </>
   )
